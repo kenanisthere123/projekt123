@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Informatik Grundwissen Quiz</title>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -75,13 +76,16 @@
         }
     </style>
 </head>
+
 <body>
     <div class="quiz-container">
         <h1>Informatik Grundwissen Quiz</h1>
+
         <div id="question-container">
             <h2 id="question"></h2>
             <div id="answer-buttons" class="btn-grid"></div>
         </div>
+
         <button id="next-btn" class="next-btn">Weiter</button>
         <div id="result" class="result"></div>
     </div>
@@ -159,7 +163,6 @@
 
         function selectAnswer(button, answer) {
             const buttons = answerButtons.querySelectorAll("button");
-
             buttons.forEach(btn => btn.disabled = true);
 
             if (answer.correct) {
