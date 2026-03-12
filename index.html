@@ -22,12 +22,6 @@
             padding: 25px;
             border-radius: 12px;
             box-shadow: 0 0 25px rgba(255,255,255,0.08);
-            animation: fadeIn 0.4s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .btn-grid {
@@ -62,37 +56,17 @@
             background: #da3633 !important;
         }
 
-        .next-btn, .start-btn {
+        .next-btn {
             margin-top: 20px;
             background: #0969da;
             color: white;
             display: none;
         }
 
-        .start-btn {
-            display: block;
-        }
-
         .result {
             margin-top: 20px;
             font-size: 1.2em;
             text-align: center;
-        }
-
-        .progress {
-            width: 100%;
-            height: 10px;
-            background: #30363d;
-            border-radius: 5px;
-            margin-top: 15px;
-            overflow: hidden;
-        }
-
-        .progress-bar {
-            height: 100%;
-            width: 0%;
-            background: #238636;
-            transition: width 0.3s ease;
         }
     </style>
 </head>
@@ -101,13 +75,7 @@
     <div class="quiz-container">
         <h1>Informatik Grundwissen Quiz</h1>
 
-        <button id="start-btn" class="start-btn">Quiz starten</button>
-
-        <div class="progress">
-            <div id="progress-bar" class="progress-bar"></div>
-        </div>
-
-        <div id="question-container" style="display:none;">
+        <div id="question-container">
             <h2 id="question"></h2>
             <div id="answer-buttons" class="btn-grid"></div>
         </div>
@@ -118,68 +86,189 @@
 
     <script>
         const questions = [
-            {
-                question: "Was bedeutet die Abkürzung CPU?",
-                answers: [
-                    { text: "Central Processing Unit", correct: true },
-                    { text: "Computer Power Unit", correct: false },
-                    { text: "Central Program Utility", correct: false },
-                    { text: "Control Processing User", correct: false }
-                ]
-            },
-            {
-                question: "Welche Zahlensysteme nutzt ein Computer intern?",
-                answers: [
-                    { text: "Binärsystem", correct: true },
-                    { text: "Dezimalsystem", correct: false },
-                    { text: "Hexadezimalsystem", correct: false },
-                    { text: "Oktalsystem", correct: false }
-                ]
-            },
-            {
-                question: "Was ist ein Algorithmus?",
-                answers: [
-                    { text: "Eine Schritt-für-Schritt-Anleitung zur Problemlösung", correct: true },
-                    { text: "Ein Computerprogramm", correct: false },
-                    { text: "Ein Hardware-Bauteil", correct: false },
-                    { text: "Ein Datentyp", correct: false }
-                ]
-            }
+            // Sehr einfach
+            { question: "Was ist ein Computer?", answers: [
+                { text: "Eine Maschine, die Daten verarbeitet", correct: true },
+                { text: "Ein Auto", correct: false },
+                { text: "Ein Kühlschrank", correct: false },
+                { text: "Ein Telefonbuch", correct: false }
+            ]},
+            { question: "Was ist eine Maus?", answers: [
+                { text: "Ein Eingabegerät", correct: true },
+                { text: "Ein Ausgabegerät", correct: false },
+                { text: "Ein Programm", correct: false },
+                { text: "Ein Kabel", correct: false }
+            ]},
+            { question: "Was ist ein Monitor?", answers: [
+                { text: "Ein Bildschirm", correct: true },
+                { text: "Eine Tastatur", correct: false },
+                { text: "Ein Lautsprecher", correct: false },
+                { text: "Ein Router", correct: false }
+            ]},
+            { question: "Was ist eine App?", answers: [
+                { text: "Ein kleines Programm", correct: true },
+                { text: "Ein Kabel", correct: false },
+                { text: "Ein Ordner", correct: false },
+                { text: "Ein Passwort", correct: false }
+            ]},
+            { question: "Was ist ein Passwort?", answers: [
+                { text: "Ein geheimer Zugangscode", correct: true },
+                { text: "Ein Bild", correct: false },
+                { text: "Ein Gerät", correct: false },
+                { text: "Ein Ordner", correct: false }
+            ]},
+
+            // Einfach
+            { question: "Wofür steht USB?", answers: [
+                { text: "Universal Serial Bus", correct: true },
+                { text: "Ultra Speed Box", correct: false },
+                { text: "United System Base", correct: false },
+                { text: "Universal Software Bridge", correct: false }
+            ]},
+            { question: "Was speichert Daten dauerhaft?", answers: [
+                { text: "Festplatte (HDD/SSD)", correct: true },
+                { text: "RAM", correct: false },
+                { text: "CPU", correct: false },
+                { text: "Maus", correct: false }
+            ]},
+            { question: "Was ist ein Browser?", answers: [
+                { text: "Ein Programm zum Surfen im Internet", correct: true },
+                { text: "Ein Computer", correct: false },
+                { text: "Ein Kabel", correct: false },
+                { text: "Ein Drucker", correct: false }
+            ]},
+            { question: "Was ist WLAN?", answers: [
+                { text: "Drahtloses Netzwerk", correct: true },
+                { text: "Ein Kabel", correct: false },
+                { text: "Ein Computer", correct: false },
+                { text: "Ein Programm", correct: false }
+            ]},
+            { question: "Was ist das Internet?", answers: [
+                { text: "Ein weltweites Netzwerk", correct: true },
+                { text: "Ein Computerspiel", correct: false },
+                { text: "Ein Programm", correct: false },
+                { text: "Ein Kabel", correct: false }
+            ]},
+
+            // Mittel
+            { question: "Wofür steht CPU?", answers: [
+                { text: "Central Processing Unit", correct: true },
+                { text: "Computer Power Unit", correct: false },
+                { text: "Central Program Utility", correct: false },
+                { text: "Control Processing User", correct: false }
+            ]},
+            { question: "Was macht der RAM?", answers: [
+                { text: "Speichert Daten kurzfristig", correct: true },
+                { text: "Speichert Daten dauerhaft", correct: false },
+                { text: "Verbindet Geräte", correct: false },
+                { text: "Zeigt Bilder an", correct: false }
+            ]},
+            { question: "Was ist ein Betriebssystem?", answers: [
+                { text: "Die Software, die den Computer steuert", correct: true },
+                { text: "Ein Kabel", correct: false },
+                { text: "Ein Lautsprecher", correct: false },
+                { text: "Ein Browser", correct: false }
+            ]},
+            { question: "Was ist eine Datei?", answers: [
+                { text: "Eine gespeicherte Information", correct: true },
+                { text: "Ein Gerät", correct: false },
+                { text: "Ein Passwort", correct: false },
+                { text: "Ein Kabel", correct: false }
+            ]},
+            { question: "Was ist eine Programmiersprache?", answers: [
+                { text: "Eine Sprache, um Computerprogramme zu schreiben", correct: true },
+                { text: "Eine Sprache für Menschen", correct: false },
+                { text: "Ein Gerät", correct: false },
+                { text: "Ein Netzwerk", correct: false }
+            ]},
+
+            // Schwer
+            { question: "Was ist ein Algorithmus?", answers: [
+                { text: "Eine Schritt-für-Schritt-Anleitung", correct: true },
+                { text: "Ein Gerät", correct: false },
+                { text: "Ein Kabel", correct: false },
+                { text: "Ein Passwort", correct: false }
+            ]},
+            { question: "Was ist eine IP-Adresse?", answers: [
+                { text: "Eine eindeutige Adresse im Netzwerk", correct: true },
+                { text: "Ein Passwort", correct: false },
+                { text: "Ein Programm", correct: false },
+                { text: "Ein Gerät", correct: false }
+            ]},
+            { question: "Was ist ein Server?", answers: [
+                { text: "Ein Computer, der Dienste bereitstellt", correct: true },
+                { text: "Ein Kabel", correct: false },
+                { text: "Ein Browser", correct: false },
+                { text: "Ein Passwort", correct: false }
+            ]},
+            { question: "Was ist eine Datenbank?", answers: [
+                { text: "Ein System zur Speicherung von Daten", correct: true },
+                { text: "Ein Kabel", correct: false },
+                { text: "Ein Gerät", correct: false },
+                { text: "Ein Browser", correct: false }
+            ]},
+            { question: "Was ist ein Netzwerkprotokoll?", answers: [
+                { text: "Eine Regel für die Kommunikation im Netzwerk", correct: true },
+                { text: "Ein Gerät", correct: false },
+                { text: "Ein Passwort", correct: false },
+                { text: "Ein Kabel", correct: false }
+            ]},
+
+            // Sehr schwer
+            { question: "Was ist ein Compiler?", answers: [
+                { text: "Ein Programm, das Code übersetzt", correct: true },
+                { text: "Ein Kabel", correct: false },
+                { text: "Ein Gerät", correct: false },
+                { text: "Ein Passwort", correct: false }
+            ]},
+            { question: "Was ist das Binärsystem?", answers: [
+                { text: "Ein Zahlensystem mit 0 und 1", correct: true },
+                { text: "Ein System mit 10 Zahlen", correct: false },
+                { text: "Ein Netzwerk", correct: false },
+                { text: "Ein Gerät", correct: false }
+            ]},
+            { question: "Was bedeutet Open Source?", answers: [
+                { text: "Der Quellcode ist öffentlich", correct: true },
+                { text: "Der Code ist geheim", correct: false },
+                { text: "Es ist ein Gerät", correct: false },
+                { text: "Es ist ein Kabel", correct: false }
+            ]},
+            { question: "Was ist ein Kernel?", answers: [
+                { text: "Der Kern eines Betriebssystems", correct: true },
+                { text: "Ein Gerät", correct: false },
+                { text: "Ein Browser", correct: false },
+                { text: "Ein Passwort", correct: false }
+            ]},
+            { question: "Was ist ein Hash-Wert?", answers: [
+                { text: "Eine eindeutige Zeichenfolge aus Daten", correct: true },
+                { text: "Ein Passwort", correct: false },
+                { text: "Ein Gerät", correct: false },
+                { text: "Ein Kabel", correct: false }
+            ]}
         ];
 
-        const startButton = document.getElementById("start-btn");
         const questionElement = document.getElementById("question");
         const answerButtons = document.getElementById("answer-buttons");
         const nextButton = document.getElementById("next-btn");
         const resultElement = document.getElementById("result");
-        const questionContainer = document.getElementById("question-container");
-        const progressBar = document.getElementById("progress-bar");
 
         let currentQuestionIndex = 0;
         let score = 0;
 
-        function shuffle(array) {
-            return array.sort(() => Math.random() - 0.5);
-        }
-
-        startButton.addEventListener("click", startQuiz);
-
         function startQuiz() {
-            startButton.style.display = "none";
-            questionContainer.style.display = "block";
             currentQuestionIndex = 0;
             score = 0;
-            shuffle(questions);
+            nextButton.style.display = "none";
+            resultElement.innerHTML = "";
             showQuestion();
         }
 
         function showQuestion() {
             resetState();
-            updateProgress();
             let currentQuestion = questions[currentQuestionIndex];
             questionElement.innerText = currentQuestion.question;
 
-            shuffle(currentQuestion.answers).forEach(answer => {
+            currentQuestion.answers.forEach(answer => {
                 const button = document.createElement("button");
                 button.innerText = answer.text;
                 button.classList.add("answer-btn");
@@ -191,11 +280,6 @@
         function resetState() {
             nextButton.style.display = "none";
             answerButtons.innerHTML = "";
-        }
-
-        function updateProgress() {
-            const progress = ((currentQuestionIndex) / questions.length) * 100;
-            progressBar.style.width = progress + "%";
         }
 
         function selectAnswer(button, answer) {
@@ -224,9 +308,10 @@
         function showResult() {
             resetState();
             questionElement.innerText = "Quiz beendet!";
-            progressBar.style.width = "100%";
             resultElement.innerHTML = `🎉 Du hast <strong>${score}</strong> von <strong>${questions.length}</strong> Fragen richtig beantwortet.`;
         }
+
+        startQuiz();
     </script>
 </body>
 </html>
